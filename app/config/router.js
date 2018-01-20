@@ -29,7 +29,7 @@ export const Root = StackNavigator(
     ShoppingCart: {
       screen: ShoppingCart,
       navigationOptions: ({ navigation }) => ({
-        title: "Bar Tab"
+        title: "Order"
       })
     }
   },

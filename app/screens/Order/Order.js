@@ -23,25 +23,33 @@ export default class Order extends Component {
   }
   componentDidMount() {
     let totalPrice = 0;
+    console.log(
+      "order.js has order: ",
+      this.props.navigation.state.params.order
+    );
     for (var i = 0; i < this.props.navigation.state.params.order.length; i++) {
       totalPrice +=
         this.props.navigation.state.params.order[i].qty *
         parseInt(this.props.navigation.state.params.order[i].price.slice(1));
-      console.log(this.props.navigation.state.params.order[i].qty);
     }
     this.setState({
       totalPrice
     });
   }
   payNow() {
-    this.setState({
-      payNowModal: true
-    });
+    this.setState(
+      {
+        payNowModal: true
+      },
+      () => console.log(this.state.payNowModal)
+    );
   }
   addToTab() {
     this.props.navigation.navigate(
       "ShoppingCart",
-      { order: this.props.navigation.state.params.order },
+      {
+        order: this.props.navigation.state.params.order
+      },
       60
     );
   }

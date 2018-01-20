@@ -45,9 +45,12 @@ export default class Drinks extends Component {
     );
   }
   setOrder(order) {
-    this.setState({
-      order: order
-    });
+    this.setState(
+      {
+        order: order
+      },
+      () => console.log("Drinks.js has order:", this.state.order)
+    );
   }
   createOrder(order) {
     this.props.navigation.navigate(

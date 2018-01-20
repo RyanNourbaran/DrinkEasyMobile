@@ -40,26 +40,12 @@ export default class WorkoutList extends Component {
     return heightArr;
   }
   addToOrder(drinkName, price) {
-    if (this.state.order.length == 0) {
-      const firstOrder = [
-        {
-          drinkName: drinkName,
-          price: price,
-          qty: 1
-        }
-      ];
-      this.setState(
-        {
-          order: firstOrder
-        },
-        () => console.log(this.state.order)
-      );
-    } else {
+    if (true) {
       let orderCopy = this.state.order;
       let drinkObject = {};
       for (var i = 0; i < this.state.order.length; i++) {
         if (this.state.order[i].drinkName == drinkName) {
-          console.log("if made it");
+          console.log("found drink already in state");
           drinkObject = this.state.order[i]; //drink object is now the right drink
           orderCopy.splice(i, 1); //removed drinkobject from orderCopy
           break;
@@ -72,6 +58,7 @@ export default class WorkoutList extends Component {
           qty: drinkObject.qty + 1
         };
       } else {
+        console.log("drink added to state");
         drinkObject = {
           drinkName: drinkName,
           price: price,
@@ -79,10 +66,12 @@ export default class WorkoutList extends Component {
         };
       }
       orderCopy.push(drinkObject);
-      this.setState({
-        order: orderCopy
-      });
-      this.props.setOrder(this.state.order);
+      this.setState(
+        {
+          order: orderCopy
+        },
+        this.props.setOrder(this.state.order)
+      );
     }
   }
   renderTable() {
