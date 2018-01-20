@@ -39,7 +39,11 @@ export default class Order extends Component {
     });
   }
   addToTab() {
-    this.props.navigation.navigate("ShoppingCart", {});
+    this.props.navigation.navigate(
+      "ShoppingCart",
+      { order: this.props.navigation.state.params.order },
+      60
+    );
   }
   submitEmail() {
     console.log("Insert Interac API here");
