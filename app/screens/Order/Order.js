@@ -41,7 +41,7 @@ export default class Order extends Component {
       {
         payNowModal: true
       },
-      () => console.log(this.state.payNowModal)
+      () => console.log("order.js: ", this.state.payNowModal)
     );
   }
   addToTab() {
