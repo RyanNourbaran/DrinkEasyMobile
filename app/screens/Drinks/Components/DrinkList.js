@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from "react-native";
 
 import {
@@ -81,7 +82,7 @@ export default class WorkoutList extends Component {
       this.setState({
         order: orderCopy
       });
-      console.log(this.state.order);
+      this.props.setOrder(this.state.order);
     }
   }
   renderTable() {
@@ -107,20 +108,22 @@ export default class WorkoutList extends Component {
         buttonArray
       ];
       return (
-        <Table style={styles.table}>
-          <Row
-            data={tableHead}
-            style={styles.head}
-            textStyle={styles.text1}
-            flexArr={[1]}
-          />
-          <Cols
-            data={tableData}
-            textStyle={styles.text2}
-            heightArr={this.cellHeight()}
-            flexArr={[1]}
-          />
-        </Table>
+        <View>
+          <Table style={styles.table}>
+            <Row
+              data={tableHead}
+              style={styles.head}
+              textStyle={styles.text1}
+              flexArr={[1]}
+            />
+            <Cols
+              data={tableData}
+              textStyle={styles.text2}
+              heightArr={this.cellHeight()}
+              flexArr={[1]}
+            />
+          </Table>
+        </View>
       );
     }
   }
