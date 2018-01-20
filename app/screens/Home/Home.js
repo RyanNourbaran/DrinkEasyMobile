@@ -8,7 +8,6 @@ export default class SearchContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items,
       results: []
     };
     this._handleResults = this._handleResults.bind(this);
@@ -17,19 +16,31 @@ export default class SearchContainer extends Component {
   _handleResults(results) {
     this.setState({ results });
   }
-
+  nextPage(id) {
+    this.props.navigation.navigate(
+      "Drinks",
+      {
+        id: 2
+      },
+      60
+    );
+  }
   render() {
     return (
       <View>
-        <Text>{this.results}</Text>
         <View style={{ marginTop: 110 }}>
           {this.state.results.map((result, i) => {
             return (
-              <Text key={i}>
-                {typeof result === "object" && !(result instanceof Array)
-                  ? result.company
-                  : result.toString()}
-              </Text>
+              <TouchableOpacity
+                key={i}
+                onPress={this.nextPage.bind(this, result.id)}
+              >
+                <Text key={i}>
+                  {typeof result === "object" && !(result instanceof Array)
+                    ? result.company
+                    : result.toString()}
+                </Text>
+              </TouchableOpacity>
             );
           })}
           <TouchableOpacity onPress={() => this.searchBar.show()}>
