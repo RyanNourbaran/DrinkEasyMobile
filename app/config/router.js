@@ -8,22 +8,22 @@ import ShoppingCart from "../screens/ShoppingCart/ShoppingCart";
 
 export const Root = StackNavigator(
     {
-        Tabs: {
-            screen: MainOptions,
+        Home: {
+            screen: Home,
             navigationOptions: ({ navigation }) => ({
-                title: "Pick Your Muscle Groups"
+                title: "Home"
             })
         },
-        Options2: {
-            screen: Options2,
+        Drinks: {
+            screen: Drinks,
             navigationOptions: ({ navigation }) => ({
-                title: "Customize Your Workout"
+                title: "Drinks"
             })
         },
-        ListView: {
-            screen: ListView,
+        Order: {
+            screen: Order,
             navigationOptions: ({ navigation }) => ({
-                title: "Workout         "
+                title: "Order"
             })
         }
     },

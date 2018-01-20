@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Root } from "./config/router";
+import { Root } from "./config/router";
 import { View, Text, StyleSheet } from "react-native";
 
 export default class App extends Component {
