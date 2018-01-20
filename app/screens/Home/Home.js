@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Keyboard } from "react-native";
 import SearchBar from "react-native-searchbar";
 
-import items from "../../api/bars.json";
+import barData from "../../api/bars.json";
 
 export default class SearchContainer extends Component {
   constructor(props) {
@@ -16,11 +16,13 @@ export default class SearchContainer extends Component {
   _handleResults(results) {
     this.setState({ results });
   }
+
   nextPage(id) {
+    Keyboard.dismiss();
     this.props.navigation.navigate(
       "Drinks",
       {
-        id: 2
+        id: id
       },
       60
     );
@@ -54,7 +56,7 @@ export default class SearchContainer extends Component {
         </View>
         <SearchBar
           ref={ref => (this.searchBar = ref)}
-          data={items}
+          data={barData}
           handleResults={this._handleResults}
           showOnLoad
         />
