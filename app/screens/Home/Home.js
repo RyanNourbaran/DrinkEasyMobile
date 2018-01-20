@@ -27,7 +27,7 @@ export default class SearchContainer extends Component {
             return (
               <Text key={i}>
                 {typeof result === "object" && !(result instanceof Array)
-                  ? result[1]
+                  ? result.company
                   : result.toString()}
               </Text>
             );
