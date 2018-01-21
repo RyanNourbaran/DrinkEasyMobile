@@ -57,10 +57,8 @@ export default class ShoppingCart extends Component {
       prices.push(result.price);
       qty.push(result.qty);
     });
-    if (this.props.navigation.state.params.grandTotal) {
+    if (this.props.navigation.state.params.oldTotal) {
       grandTotal += this.props.navigation.state.params.oldTotal;
-
-      console.log("grand total", grandTotal);
     }
 
     this.setState(
@@ -74,7 +72,6 @@ export default class ShoppingCart extends Component {
       },
       () => console.log(this.state.drinkNames)
     );
-    console.log("order is " + this.state.order);
   }
   drinkMore() {
     this.props.navigation.navigate(
@@ -89,7 +86,7 @@ export default class ShoppingCart extends Component {
   }
   payNow() {
     fetch(
-      "https://api.mlab.com/api/1/databases/drinkeasy/collections/bills?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
+      "https://api.mlab.com/api/1/databases/drinkeasy/collections/outstanding?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
       {
         method: "POST",
         headers: {
@@ -100,7 +97,8 @@ export default class ShoppingCart extends Component {
           ready: true,
           barID: this.props.navigation.state.params.barId,
           customerID: this.props.navigation.state.params.userId,
-          drinks: this.props.navigation.state.params.order
+          drinks: this.props.navigation.state.params.order,
+          totalPrice: this.state.grandTotal
         })
       }
     );

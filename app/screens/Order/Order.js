@@ -69,7 +69,7 @@ export default class Order extends Component {
           barID: this.props.navigation.state.params.barId,
           customerID: this.props.navigation.state.params.userId,
           drinks: this.props.navigation.state.params.order,
-          oldTotal: this.props.navigation.state.params.oldTotal
+          totalPrice: this.state.totalPrice
         })
       }
     );
@@ -83,7 +83,7 @@ export default class Order extends Component {
   }
   addToTab() {
     fetch(
-      "https://api.mlab.com/api/1/databases/drinkeasy/collections/bills?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
+      "https://api.mlab.com/api/1/databases/drinkeasy/collections/outstanding?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
       {
         method: "POST",
         headers: {
@@ -94,7 +94,8 @@ export default class Order extends Component {
           ready: false,
           barID: this.props.navigation.state.params.barId,
           customerID: this.props.navigation.state.params.userId,
-          drinks: this.props.navigation.state.params.order
+          drinks: this.props.navigation.state.params.order,
+          totalPrice: this.state.totalPrice
         })
       }
     );
@@ -103,7 +104,8 @@ export default class Order extends Component {
       "ShoppingCart",
       {
         thisBar: this.props.navigation.state.params.thisBar,
-        order: this.props.navigation.state.params.order
+        order: this.props.navigation.state.params.order,
+        oldTotal: this.props.navigation.state.params.oldTotal
       },
       60
     );
