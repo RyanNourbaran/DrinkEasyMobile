@@ -11,7 +11,6 @@ import {
 } from "react-native";
 
 import DrinkList from "./Components/DrinkList";
-import barData from "../../api/bars.json";
 
 export default class Drinks extends Component {
   constructor(props) {
@@ -60,6 +59,9 @@ export default class Drinks extends Component {
     this.props.navigation.navigate(
       "Order",
       {
+        thisBar: this.props.navigation.state.params.thisBar,
+        barId: this.props.navigation.state.params.thisBar.email,
+        userId: this.props.navigation.state.params.userId,
         order: order
       },
       60

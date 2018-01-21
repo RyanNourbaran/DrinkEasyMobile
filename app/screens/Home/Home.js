@@ -5,8 +5,12 @@ import {
   TouchableOpacity,
   Keyboard,
   StyleSheet,
-  ImageBackground
+  ImageBackground,
+  KeyboardAvoidingView,
+  TextInput
 } from "react-native";
+
+import Modal from "react-native-modal";
 import SearchBar from "react-native-searchbar";
 
 export default class SearchContainer extends Component {
@@ -14,7 +18,10 @@ export default class SearchContainer extends Component {
     super(props);
     this.state = {
       results: [],
-      data: []
+      data: [],
+      user: "",
+      pass: "",
+      signInModal: true
     };
     this._handleResults = this._handleResults.bind(this);
   }
@@ -45,11 +52,17 @@ export default class SearchContainer extends Component {
     this.props.navigation.navigate(
       "Drinks",
       {
+        userId: this.state.user,
         id: bar._id,
         thisBar: bar
       },
       60
     );
+  }
+  signIn() {
+    this.setState({
+      signInModal: false
+    });
   }
   render() {
     return (
@@ -108,6 +121,48 @@ export default class SearchContainer extends Component {
             Easy
           </Text>
         </View>
+
+        <Modal isVisible={this.state.signInModal}>
+          <KeyboardAvoidingView
+            behavior="height"
+            style={{ flex: 0.3, backgroundColor: "white", opacity: 0.8 }}
+          >
+            <View style={styles.drinkEasy}>
+              <Text style={styles.text1}>Username:</Text>
+              <TextInput
+                style={{
+                  borderWidth: 0.5,
+                  fontSize: 20,
+                  width: "70%"
+                }}
+                onChangeText={user => this.setState({ user })}
+                value={this.state.user}
+                dsf
+              />
+            </View>
+            <View style={styles.drinkEasy}>
+              <Text style={styles.text1}>Password:</Text>
+              <TextInput
+                style={{
+                  borderWidth: 0.5,
+                  fontSize: 20,
+                  width: "70%"
+                }}
+                onChangeText={pass => this.setState({ pass })}
+                value={this.state.pass}
+                secureTextEntry={true}
+              />
+            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.signIn.bind(this)}
+            >
+              <Text style={[styles.text, { color: "white", margin: 5 }]}>
+                Sign In
+              </Text>
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </Modal>
       </ImageBackground>
     );
   }
@@ -144,5 +199,12 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#226666",
+    padding: 10,
+    borderWidth: 1,
+    zIndex: 10
   }
 });

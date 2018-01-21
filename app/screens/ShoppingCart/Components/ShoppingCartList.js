@@ -32,9 +32,7 @@ export default class ShoppingCartList extends Component {
 
   cellHeight() {
     let { height, width } = Dimensions.get("window");
-    const arrayLength = Math.floor(
-      height * 0.75 / this.props.drinkNames.length
-    );
+    const arrayLength = Math.floor(height * 0.6 / this.props.drinkNames.length);
     let heightArr = Array(this.props.drinkNames.length);
     const tests = heightArr.toString();
     heightArr.fill(arrayLength);

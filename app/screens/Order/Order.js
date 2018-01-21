@@ -22,7 +22,8 @@ export default class Order extends Component {
       text: "",
       drinkNames: [],
       prices: [],
-      qty: []
+      qty: [],
+      paid: false
     };
   }
   componentDidMount() {
@@ -59,25 +60,63 @@ export default class Order extends Component {
     );
   }
   payNow() {
+    fetch(
+      "https://api.mlab.com/api/1/databases/drinkeasy/collections/bills?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ready: true,
+          barID: this.props.navigation.state.params.barId,
+          customerID: this.props.navigation.state.params.userId,
+          drinks: this.props.navigation.state.params.order
+        })
+      }
+    );
+
     this.setState(
       {
-        payNowModal: true
+        paid: true
       },
-      () => console.log("order.js: ", this.state.payNowModal)
+      () => console.log("order.js: ", this.state.paid)
     );
   }
   addToTab() {
+    console.log(
+      this.props.navigation.state.params.barId,
+      this.props.navigation.state.params.userId,
+      this.props.navigation.state.params.order
+    );
+    fetch(
+      "https://api.mlab.com/api/1/databases/drinkeasy/collections/bills?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ready: false,
+          barID: this.props.navigation.state.params.barId,
+          customerID: this.props.navigation.state.params.userId,
+          drinks: this.props.navigation.state.params.order
+        })
+      }
+    );
+
     this.props.navigation.navigate(
       "ShoppingCart",
       {
+        thisBar: this.props.navigation.state.params.thisBar,
         order: this.props.navigation.state.params.order
       },
       60
     );
   }
-  submitEmail() {
-    console.log("Insert Interac API here");
-  }
+  submitEmail() {}
   render() {
     return (
       <KeyboardAvoidingView style={styles.container}>
@@ -103,29 +142,24 @@ export default class Order extends Component {
         >
           <Text style={[styles.text, { color: "white" }]}> Add to tab</Text>
         </TouchableOpacity>
-
         <Modal
-          isVisible={this.state.payNowModal}
-          onBackdropPress={() => this.setState({ payNowModal: false })}
+          isVisible={this.state.paid}
+          onBackdropPress={() => this.setState({ paid: false })}
         >
           <KeyboardAvoidingView
             behavior="height"
             style={{ flex: 0.3, backgroundColor: "white", opacity: 0.8 }}
           >
-            <Text style={styles.text}>Enter E-Mail for Interac E-transfer</Text>
-            <TextInput
-              style={{ borderWidth: 0.5, margin: 5, fontSize: 20 }}
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
-            />
-            <TouchableOpacity
-              style={styles.button}
-              onPress={this.submitEmail.bind(this)}
+            <Text
+              style={{
+                fontSize: 20,
+                textAlign: "center",
+                alignSelf: "center",
+                alignContent: "center"
+              }}
             >
-              <Text style={[styles.text, { color: "white", margin: 5 }]}>
-                Send E-Transfer Request to my E-Mail
-              </Text>
-            </TouchableOpacity>
+              Check your E-Mail and accept the E-transfer request!
+            </Text>
           </KeyboardAvoidingView>
         </Modal>
       </KeyboardAvoidingView>
