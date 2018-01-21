@@ -28,10 +28,6 @@ export default class Order extends Component {
   }
   componentDidMount() {
     let totalPrice = 0;
-    console.log(
-      "order.js has order: ",
-      this.props.navigation.state.params.order
-    );
     for (var i = 0; i < this.props.navigation.state.params.order.length; i++) {
       totalPrice +=
         this.props.navigation.state.params.order[i].qty *
@@ -61,7 +57,7 @@ export default class Order extends Component {
   }
   payNow() {
     fetch(
-      "https://api.mlab.com/api/1/databases/drinkeasy/collections/bills?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
+      "https://api.mlab.com/api/1/databases/drinkeasy/collections/outstanding?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
       {
         method: "POST",
         headers: {
@@ -72,7 +68,8 @@ export default class Order extends Component {
           ready: true,
           barID: this.props.navigation.state.params.barId,
           customerID: this.props.navigation.state.params.userId,
-          drinks: this.props.navigation.state.params.order
+          drinks: this.props.navigation.state.params.order,
+          oldTotal: this.props.navigation.state.params.oldTotal
         })
       }
     );
@@ -85,11 +82,6 @@ export default class Order extends Component {
     );
   }
   addToTab() {
-    console.log(
-      this.props.navigation.state.params.barId,
-      this.props.navigation.state.params.userId,
-      this.props.navigation.state.params.order
-    );
     fetch(
       "https://api.mlab.com/api/1/databases/drinkeasy/collections/bills?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt",
       {

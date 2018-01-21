@@ -52,7 +52,6 @@ export default class Drinks extends Component {
     );
   }
   createOrder(order) {
-    console.log(order.length);
     if (order.length <= 0) {
       return;
     }
@@ -62,7 +61,8 @@ export default class Drinks extends Component {
         thisBar: this.props.navigation.state.params.thisBar,
         barId: this.props.navigation.state.params.thisBar.email,
         userId: this.props.navigation.state.params.userId,
-        order: order
+        order: order,
+        oldTotal: this.props.navigation.state.params.oldTotal
       },
       60
     );

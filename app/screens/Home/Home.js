@@ -128,7 +128,7 @@ export default class SearchContainer extends Component {
             style={{ flex: 0.3, backgroundColor: "white", opacity: 0.8 }}
           >
             <View style={styles.drinkEasy}>
-              <Text style={styles.text1}>Username:</Text>
+              <Text style={styles.text1}>E-Mail: </Text>
               <TextInput
                 style={{
                   borderWidth: 0.5,

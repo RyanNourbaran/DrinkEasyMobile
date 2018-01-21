@@ -56,7 +56,6 @@ export default class DrinkList extends Component {
     let drinkObject = {};
     for (var i = 0; i < this.state.order.length; i++) {
       if (this.state.order[i].drinkName == drinkName) {
-        console.log("Drinklist.js: found drink already in state");
         drinkObject = this.state.order[i]; //drink object is now the right drink
         orderCopy.splice(i, 1); //removed drinkobject from orderCopy
         break;
@@ -69,7 +68,6 @@ export default class DrinkList extends Component {
         qty: drinkObject.qty + 1
       };
     } else {
-      console.log("Drinklist.js: drink added to state");
       drinkObject = {
         drinkName: drinkName,
         price: price,

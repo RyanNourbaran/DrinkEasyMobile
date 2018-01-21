@@ -57,7 +57,11 @@ export default class ShoppingCart extends Component {
       prices.push(result.price);
       qty.push(result.qty);
     });
-    console.log(subTotals);
+    if (this.props.navigation.state.params.grandTotal) {
+      grandTotal += this.props.navigation.state.params.oldTotal;
+
+      console.log("grand total", grandTotal);
+    }
 
     this.setState(
       {
@@ -77,7 +81,8 @@ export default class ShoppingCart extends Component {
       "Drinks",
       {
         thisBar: this.props.navigation.state.params.thisBar,
-        userId: this.props.navigation.state.params.thisBar._id
+        userId: this.props.navigation.state.params.thisBar._id,
+        oldTotal: this.state.grandTotal
       },
       60
     );
