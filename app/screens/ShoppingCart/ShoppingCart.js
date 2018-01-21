@@ -1,7 +1,13 @@
 /* @flow */
 
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  TouchableOpacity
+} from "react-native";
 
 export default class ShoppingCart extends Component {
   constructor(props) {
@@ -36,17 +42,49 @@ export default class ShoppingCart extends Component {
     );
     console.log("order is " + this.state.order);
   }
+
   render() {
+    let subTotalPrice = 0;
+    let TotalPrice = 0;
     return (
-      <View style={styles.container}>
-        <Text>I'm the ShoppingCart component</Text>
-      </View>
+      <KeyboardAvoidingView style={styles.container}>
+        <View style={styles.orderList}>
+          {this.state.order.map((result, i) => {
+            let price = parseInt(result.price.slice(1)); //get rid of $ sign from price string
+            TotalPrice += price * result.qty;
+            return (
+              <Text style={styles.text} key={i}>
+                {result.drinkName} x {result.qty} @ {result.price} =
+                {result.qty * price}
+              </Text>
+            );
+          })}
+          <Text style={styles.text}>Total = ${TotalPrice}</Text>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: "space-between"
+  },
+  orderList: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-around"
+  },
+  text: {
+    fontSize: 20,
+    textAlign: "left",
+    alignSelf: "center"
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "yellow",
+    padding: 10,
+    borderWidth: 1
   }
 });

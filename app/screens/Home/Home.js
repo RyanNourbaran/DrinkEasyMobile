@@ -45,14 +45,6 @@ export default class SearchContainer extends Component {
               </TouchableOpacity>
             );
           })}
-          <TouchableOpacity onPress={() => this.searchBar.show()}>
-            <View
-              style={{ backgroundColor: "green", height: 100, marginTop: 50 }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.searchBar.hide()}>
-            <View style={{ backgroundColor: "red", height: 100 }} />
-          </TouchableOpacity>
         </View>
         <SearchBar
           ref={ref => (this.searchBar = ref)}
