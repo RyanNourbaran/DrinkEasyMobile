@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
+import { NavigationActions } from "react-navigation";
 
 import Modal from "react-native-modal";
 import ShoppingCartList from "./Components/ShoppingCartList";
@@ -136,7 +137,16 @@ export default class ShoppingCart extends Component {
 
         <Modal
           isVisible={this.state.paid}
-          onBackdropPress={() => this.setState({ paid: false })}
+          onBackdropPress={() => {
+            this.setState({
+              paid: false
+            });
+            const resetAction = NavigationActions.reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: "Home" })]
+            });
+            this.props.navigation.dispatch(resetAction);
+          }}
         >
           <KeyboardAvoidingView
             behavior="height"

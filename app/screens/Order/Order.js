@@ -13,6 +13,7 @@ import {
 import Modal from "react-native-modal";
 import OrderList from "./Components/OrderList";
 
+import { NavigationActions } from "react-navigation";
 export default class Order extends Component {
   constructor(props) {
     super(props);
@@ -138,7 +139,16 @@ export default class Order extends Component {
         </TouchableOpacity>
         <Modal
           isVisible={this.state.paid}
-          onBackdropPress={() => this.setState({ paid: false })}
+          onBackdropPress={() => {
+            this.setState({
+              paid: false
+            });
+            const resetAction = NavigationActions.reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: "Home" })]
+            });
+            this.props.navigation.dispatch(resetAction);
+          }}
         >
           <KeyboardAvoidingView
             behavior="height"
