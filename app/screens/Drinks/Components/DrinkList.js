@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     height: "90%"
   },
   head: {
-    height: 40,
+    height: 55,
     backgroundColor: "#B9D2B1"
   },
   text2: {
