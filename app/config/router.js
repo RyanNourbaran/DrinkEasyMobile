@@ -39,7 +39,7 @@ export const Root = StackNavigator(
         justifyContent: "center",
         borderWidth: 1,
         borderColor: "#1d2088",
-        backgroundColor: "#e8bb06",
+        backgroundColor: "#226666",
         height: 50
       },
       headerTitleStyle: {

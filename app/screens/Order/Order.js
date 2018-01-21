@@ -75,14 +75,16 @@ export default class Order extends Component {
           style={styles.button}
           onPress={this.payNow.bind(this)}
         >
-          <Text style={styles.text}>Pay now using Interac E-Transfer</Text>
+          <Text style={[styles.text, { color: "white" }]}>
+            Pay now using Interac E-Transfer
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
           onPress={this.addToTab.bind(this)}
         >
-          <Text style={styles.text}> Add to tab</Text>
+          <Text style={[styles.text, { color: "white" }]}> Add to tab</Text>
         </TouchableOpacity>
         <Modal
           isVisible={this.state.payNowModal}
@@ -102,7 +104,7 @@ export default class Order extends Component {
               style={styles.button}
               onPress={this.submitEmail.bind(this)}
             >
-              <Text style={[styles.text, { margin: 5 }]}>
+              <Text style={[styles.text, { color: "white", margin: 5 }]}>
                 Send E-Transfer Request to my E-Mail
               </Text>
             </TouchableOpacity>
@@ -130,8 +132,9 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "yellow",
+    backgroundColor: "#226666",
     padding: 10,
-    borderWidth: 1
+    borderWidth: 1,
+    zIndex: 10
   }
 });

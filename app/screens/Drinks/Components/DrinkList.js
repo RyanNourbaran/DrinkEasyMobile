@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Button
+  Button,
+  Image
 } from "react-native";
 
 import {
@@ -77,9 +78,10 @@ export default class WorkoutList extends Component {
   renderTable() {
     const ele = (drinkName, price) => (
       <TouchableOpacity onPress={this.addToOrder.bind(this, drinkName, price)}>
-        <View style={styles.btn}>
-          <Text style={styles.btnText}>Add</Text>
-        </View>
+        <Image
+          source={require("../../../imgs/add.png")}
+          style={{ width: 40, height: 40, alignSelf: "center" }}
+        />
       </TouchableOpacity>
     );
     let buttonArray = [];
@@ -89,16 +91,14 @@ export default class WorkoutList extends Component {
       buttonArray.push(ele(this.props.drinkNames[i], this.props.prices[i]));
     }
     if (this.props.drinkNames.length > 0) {
-      const tableHead = ["Drink Name", "Description", "Price", "Add to Order"];
-      const tableData = [
-        this.props.drinkNames,
-        this.props.descriptions,
-        this.props.prices,
-        buttonArray
-      ];
+      const tableHead = ["Drink Name", "Price", "Add to Order"];
+      const tableData = [this.props.drinkNames, this.props.prices, buttonArray];
       return (
         <View>
-          <Table style={styles.table}>
+          <Table
+            style={styles.table}
+            borderStyle={{ borderWidth: 0, borderColor: "black" }}
+          >
             <Row
               data={tableHead}
               style={styles.head}
@@ -126,12 +126,11 @@ const styles = StyleSheet.create({
     alignSelf: "stretch"
   },
   container: {
-    backgroundColor: "#73CFE6",
-    height: "100%"
+    height: "90%"
   },
   head: {
     height: 40,
-    backgroundColor: "#00B3E6"
+    backgroundColor: "#226666"
   },
   text2: {
     textAlign: "center",
@@ -140,6 +139,7 @@ const styles = StyleSheet.create({
   text1: {
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white"
   }
 });
