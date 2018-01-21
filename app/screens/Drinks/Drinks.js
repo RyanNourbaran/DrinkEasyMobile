@@ -24,14 +24,7 @@ export default class Drinks extends Component {
     };
   }
   componentDidMount() {
-    let thisBar = [];
-
-    for (let i = 0; i < barData.length; i++) {
-      if (barData[i].id == this.props.navigation.state.params.id) {
-        thisBar = barData[i];
-        break;
-      }
-    }
+    let thisBar = this.props.navigation.state.params.thisBar;
 
     let drinkNames = [];
     let prices = [];

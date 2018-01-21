@@ -9,27 +9,44 @@ import {
 } from "react-native";
 import SearchBar from "react-native-searchbar";
 
-import barData from "../../api/bars.json";
-
 export default class SearchContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: []
+      results: [],
+      data: []
     };
     this._handleResults = this._handleResults.bind(this);
+  }
+  componentDidMount() {
+    this.getData().then(data => {
+      this.setState({
+        data: data
+      });
+    });
+  }
+
+  async getData() {
+    let response = await fetch(
+      "https://api.mlab.com/api/1/databases/drinkeasy/collections/menus?apiKey=z6BRmL_6zmBPyH2x3KY7lyOCZ4A_QOVt"
+    );
+
+    let json = await response.json();
+    return json;
   }
 
   _handleResults(results) {
     this.setState({ results });
   }
 
-  nextPage(id) {
+  nextPage(bar) {
+    console.log(bar.drinks);
     Keyboard.dismiss();
     this.props.navigation.navigate(
       "Drinks",
       {
-        id: id
+        id: bar._id,
+        thisBar: bar
       },
       60
     );
@@ -46,7 +63,7 @@ export default class SearchContainer extends Component {
               return (
                 <TouchableOpacity
                   key={i}
-                  onPress={this.nextPage.bind(this, result.id)}
+                  onPress={this.nextPage.bind(this, result)}
                   style={{
                     justifyContent: "center",
                     borderBottomWidth: 0.2
@@ -64,7 +81,7 @@ export default class SearchContainer extends Component {
         </View>
         <SearchBar
           ref={ref => (this.searchBar = ref)}
-          data={barData}
+          data={this.state.data}
           handleResults={this._handleResults}
           backgroundColor={"#d8d8d8"}
           heightAdjust={40}
