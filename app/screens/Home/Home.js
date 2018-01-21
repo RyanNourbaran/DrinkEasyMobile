@@ -71,7 +71,6 @@ export default class SearchContainer extends Component {
         <View style={styles.drinkEasy}>
           <Text
             style={{
-              fontFamily: "Impact, Charcoal, sans-serif",
               fontSize: 40,
               color: "white"
             }}
@@ -80,7 +79,6 @@ export default class SearchContainer extends Component {
           </Text>
           <Text
             style={{
-              fontFamily: "Impact, Charcoal, sans-serif",
               fontSize: 40,
               color: "white",
               fontStyle: "italic"
@@ -123,7 +121,6 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     width: null,
-    height: null,
-    resizeMode: "cover"
+    height: null
   }
 });

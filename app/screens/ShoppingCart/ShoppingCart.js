@@ -9,11 +9,18 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import ShoppingCartList from "./Components/ShoppingCartList";
+
 export default class ShoppingCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: []
+      order: [],
+      subTotals: [],
+      drinkNames: [],
+      prices: [],
+      qty: [],
+      grandTotal: 0
     };
   }
   componentDidMount() {
@@ -34,33 +41,47 @@ export default class ShoppingCart extends Component {
       updatedOrder.push(currentDrink);
     }
 
+    //creating props for ShoppingCartList
+    let subTotals = [];
+    let drinkNames = [];
+    let prices = [];
+    let qty = [];
+    let grandTotal = 0;
+    updatedOrder.map((result, i) => {
+      let thisPrice = parseInt(result.price.slice(1));
+      subTotals.push("$" + thisPrice * result.qty);
+      grandTotal += thisPrice * result.qty;
+      drinkNames.push(result.drinkName);
+      prices.push(result.price);
+      qty.push(result.qty);
+    });
+    console.log(subTotals);
+
     this.setState(
       {
-        order: updatedOrder
+        order: updatedOrder,
+        subTotals: subTotals,
+        drinkNames: drinkNames,
+        prices: prices,
+        qty: qty,
+        grandTotal: grandTotal
       },
-      () => console.log(this.state.order)
+      () => console.log(this.state.drinkNames)
     );
     console.log("order is " + this.state.order);
   }
 
   render() {
     let subTotalPrice = 0;
-    let TotalPrice = 0;
     return (
       <KeyboardAvoidingView style={styles.container}>
-        <View style={styles.orderList}>
-          {this.state.order.map((result, i) => {
-            let price = parseInt(result.price.slice(1)); //get rid of $ sign from price string
-            TotalPrice += price * result.qty;
-            return (
-              <Text style={styles.text} key={i}>
-                {result.drinkName} x {result.qty} @ {result.price} =
-                {result.qty * price}
-              </Text>
-            );
-          })}
-          <Text style={styles.text}>Total = ${TotalPrice}</Text>
-        </View>
+        <ShoppingCartList
+          drinkNames={this.state.drinkNames}
+          prices={this.state.prices}
+          qty={this.state.qty}
+          subTotals={this.state.subTotals}
+          grandTotal={this.state.grandTotal}
+        />
       </KeyboardAvoidingView>
     );
   }

@@ -71,6 +71,7 @@ export default class Drinks extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text />
         <DrinkList
           drinkNames={this.state.drinkNames}
           prices={this.state.prices}

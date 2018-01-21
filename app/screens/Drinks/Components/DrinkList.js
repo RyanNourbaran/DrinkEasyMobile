@@ -19,11 +19,12 @@ import {
   Cell
 } from "react-native-table-component";
 
-export default class WorkoutList extends Component {
+export default class DrinkList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: []
+      order: [],
+      qtyArray: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     };
     this.renderTable = this.renderTable.bind(this);
     this.cellHeight = this.cellHeight.bind(this);
@@ -41,39 +42,45 @@ export default class WorkoutList extends Component {
     return heightArr;
   }
   addToOrder(drinkName, price) {
-    if (true) {
-      let orderCopy = this.state.order;
-      let drinkObject = {};
-      for (var i = 0; i < this.state.order.length; i++) {
-        if (this.state.order[i].drinkName == drinkName) {
-          console.log("Drinklist.js: found drink already in state");
-          drinkObject = this.state.order[i]; //drink object is now the right drink
-          orderCopy.splice(i, 1); //removed drinkobject from orderCopy
-          break;
-        }
+    let orderCopy = this.state.order;
+    let drinkObject = {};
+    for (var i = 0; i < this.state.order.length; i++) {
+      if (this.state.order[i].drinkName == drinkName) {
+        console.log("Drinklist.js: found drink already in state");
+        drinkObject = this.state.order[i]; //drink object is now the right drink
+        orderCopy.splice(i, 1); //removed drinkobject from orderCopy
+        break;
       }
-      if (drinkObject.qty >= 1) {
-        drinkObject = {
-          drinkName: drinkObject.drinkName,
-          price: drinkObject.price,
-          qty: drinkObject.qty + 1
-        };
-      } else {
-        console.log("Drinklist.js: drink added to state");
-        drinkObject = {
-          drinkName: drinkName,
-          price: price,
-          qty: 1
-        };
-      }
-      orderCopy.push(drinkObject);
-      this.setState(
-        {
-          order: orderCopy
-        },
-        this.props.setOrder(this.state.order)
-      );
     }
+    if (drinkObject.qty >= 1) {
+      drinkObject = {
+        drinkName: drinkObject.drinkName,
+        price: drinkObject.price,
+        qty: drinkObject.qty + 1
+      };
+    } else {
+      console.log("Drinklist.js: drink added to state");
+      drinkObject = {
+        drinkName: drinkName,
+        price: price,
+        qty: 1
+      };
+    }
+    orderCopy.push(drinkObject);
+
+    let qtyArray = this.state.qtyArray;
+    for (var i = 0; i < this.props.drinkNames.length; i++) {
+      if (this.props.drinkNames[i] == drinkName) {
+        qtyArray[i] = qtyArray[i] + 1;
+      }
+    }
+    this.setState(
+      {
+        order: orderCopy,
+        qtyArray: qtyArray
+      },
+      this.props.setOrder(this.state.order)
+    );
   }
   renderTable() {
     const ele = (drinkName, price) => (
@@ -85,14 +92,17 @@ export default class WorkoutList extends Component {
       </TouchableOpacity>
     );
     let buttonArray = [];
-    let testArray = [];
     for (var i = 0; i < this.props.drinkNames.length; i++) {
-      testArray.push(i);
       buttonArray.push(ele(this.props.drinkNames[i], this.props.prices[i]));
     }
     if (this.props.drinkNames.length > 0) {
-      const tableHead = ["Drink Name", "Price", "Add to Order"];
-      const tableData = [this.props.drinkNames, this.props.prices, buttonArray];
+      const tableHead = ["Drink Name", "Price", "Add to Order", "Quantity"];
+      const tableData = [
+        this.props.drinkNames,
+        this.props.prices,
+        buttonArray,
+        this.state.qtyArray
+      ];
       return (
         <View>
           <Table

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 import Modal from "react-native-modal";
+import OrderList from "./Components/OrderList";
 
 export default class Order extends Component {
   constructor(props) {
@@ -18,7 +19,10 @@ export default class Order extends Component {
     this.state = {
       totalPrice: 0,
       payNowModal: false,
-      text: ""
+      text: "",
+      drinkNames: [],
+      prices: [],
+      qty: []
     };
   }
   componentDidMount() {
@@ -35,6 +39,24 @@ export default class Order extends Component {
     this.setState({
       totalPrice
     });
+    let drinkNames = [];
+    let prices = [];
+    let qty = [];
+    let subTotals = [];
+    this.props.navigation.state.params.order.map((result, i) => {
+      subTotals.push(result.price * result.qty);
+      drinkNames.push(result.drinkName);
+      prices.push(result.price);
+      qty.push(result.qty);
+    });
+    this.setState(
+      {
+        drinkNames: drinkNames,
+        prices: prices,
+        qty: qty
+      },
+      () => console.log(this.state.drinkNames)
+    );
   }
   payNow() {
     this.setState(
@@ -59,18 +81,13 @@ export default class Order extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container}>
-        <View style={styles.orderList}>
-          {this.props.navigation.state.params.order.map((result, i) => {
-            let price = parseInt(result.price.slice(1)); //get rid of $ sign from price string
-            return (
-              <Text style={styles.text} key={i}>
-                {result.drinkName} x {result.qty} @ {result.price} =
-                {result.qty * price}
-              </Text>
-            );
-          })}
-          <Text style={styles.text}>Total = ${this.state.totalPrice}</Text>
-        </View>
+        <OrderList
+          drinkNames={this.state.drinkNames}
+          prices={this.state.prices}
+          qty={this.state.qty}
+          totalPrice={this.state.totalPrice}
+        />
+
         <TouchableOpacity
           style={styles.button}
           onPress={this.payNow.bind(this)}
@@ -86,6 +103,7 @@ export default class Order extends Component {
         >
           <Text style={[styles.text, { color: "white" }]}> Add to tab</Text>
         </TouchableOpacity>
+
         <Modal
           isVisible={this.state.payNowModal}
           onBackdropPress={() => this.setState({ payNowModal: false })}

@@ -43,7 +43,8 @@ export const Root = StackNavigator(
         height: 50
       },
       headerTitleStyle: {
-        alignSelf: "center"
+        alignSelf: "center",
+        color: "white"
       }
     }
   }
