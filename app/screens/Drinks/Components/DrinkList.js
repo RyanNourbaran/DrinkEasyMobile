@@ -125,8 +125,8 @@ export default class DrinkList extends Component {
               textStyle={styles.text1}
               flexArr={[1]}
               widthArr={[
-                this.cellWidth() + 50,
-                this.cellWidth() - 50,
+                this.cellWidth() + 30,
+                this.cellWidth() - 30,
                 this.cellWidth(),
                 this.cellWidth()
               ]}
@@ -137,8 +137,8 @@ export default class DrinkList extends Component {
               heightArr={this.cellHeight()}
               flexArr={[1]}
               widthArr={[
-                this.cellWidth() + 50,
-                this.cellWidth() - 50,
+                this.cellWidth() + 30,
+                this.cellWidth() - 30,
                 this.cellWidth(),
                 this.cellWidth()
               ]}
