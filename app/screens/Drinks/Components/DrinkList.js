@@ -41,6 +41,16 @@ export default class DrinkList extends Component {
 
     return heightArr;
   }
+
+  cellWidth() {
+    let { height, width } = Dimensions.get("window");
+    //const arrayLength = Math.floor(width / this.props.drinkNames.length);
+    //let widthArr = Array(this.props.drinkNames.length);
+    //const tests = widthArr.toString();
+    //widthArr.fill(arrayLength);
+
+    return width / 4;
+  }
   addToOrder(drinkName, price) {
     let orderCopy = this.state.order;
     let drinkObject = {};
@@ -114,12 +124,24 @@ export default class DrinkList extends Component {
               style={styles.head}
               textStyle={styles.text1}
               flexArr={[1]}
+              widthArr={[
+                this.cellWidth() + 50,
+                this.cellWidth() - 50,
+                this.cellWidth(),
+                this.cellWidth()
+              ]}
             />
             <Cols
               data={tableData}
               textStyle={styles.text2}
               heightArr={this.cellHeight()}
               flexArr={[1]}
+              widthArr={[
+                this.cellWidth() + 50,
+                this.cellWidth() - 50,
+                this.cellWidth(),
+                this.cellWidth()
+              ]}
             />
           </Table>
         </View>
@@ -140,7 +162,7 @@ const styles = StyleSheet.create({
   },
   head: {
     height: 40,
-    backgroundColor: "#226666"
+    backgroundColor: "#B9D2B1"
   },
   text2: {
     textAlign: "center",

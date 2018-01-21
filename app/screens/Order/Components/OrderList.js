@@ -40,6 +40,15 @@ export default class OrderList extends Component {
     return heightArr;
   }
 
+  cellWidth() {
+    let { height, width } = Dimensions.get("window");
+    //const arrayLength = Math.floor(width / this.props.drinkNames.length);
+    //let widthArr = Array(this.props.drinkNames.length);
+    //const tests = widthArr.toString();
+    //widthArr.fill(arrayLength);
+
+    return width / 3;
+  }
   renderTable() {
     if (this.props.drinkNames.length > 0) {
       const tableHead = ["Drink Name", "Price", "Qty"];
@@ -59,12 +68,22 @@ export default class OrderList extends Component {
               style={styles.head}
               textStyle={styles.text1}
               flexArr={[1]}
+              widthArr={[
+                this.cellWidth() + 50,
+                this.cellWidth(),
+                this.cellWidth() - 50
+              ]}
             />
             <Cols
               data={tableData}
               textStyle={styles.text2}
               heightArr={this.cellHeight()}
               flexArr={[1]}
+              widthArr={[
+                this.cellWidth() + 50,
+                this.cellWidth(),
+                this.cellWidth() - 50
+              ]}
             />
             <Row
               data={["Total for order:", "$" + this.props.totalPrice]}
@@ -91,7 +110,7 @@ const styles = StyleSheet.create({
   },
   head: {
     height: 40,
-    backgroundColor: "#226666"
+    backgroundColor: "#B9D2B1"
   },
   text2: {
     textAlign: "center",

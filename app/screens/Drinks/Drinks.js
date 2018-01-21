@@ -20,7 +20,7 @@ export default class Drinks extends Component {
       drinkNames: ["el"],
       prices: [],
       descriptions: [],
-      order: [{}]
+      order: []
     };
   }
   componentDidMount() {
@@ -60,6 +60,10 @@ export default class Drinks extends Component {
     );
   }
   createOrder(order) {
+    console.log(order.length);
+    if (order.length <= 0) {
+      return;
+    }
     this.props.navigation.navigate(
       "Order",
       {

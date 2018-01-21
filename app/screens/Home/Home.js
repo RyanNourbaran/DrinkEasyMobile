@@ -41,12 +41,16 @@ export default class SearchContainer extends Component {
         style={styles.backgroundImage}
       >
         <View style={{ backgroundColor: "#d8d8d8", opacity: 0.8 }}>
-          <View style={{ marginTop: 110 }}>
+          <View style={{ marginTop: "30%", marginBottom: "10%" }}>
             {this.state.results.map((result, i) => {
               return (
                 <TouchableOpacity
                   key={i}
                   onPress={this.nextPage.bind(this, result.id)}
+                  style={{
+                    justifyContent: "center",
+                    borderBottomWidth: 0.2
+                  }}
                 >
                   <Text style={styles.text1} key={i}>
                     {typeof result === "object" && !(result instanceof Array)
@@ -116,7 +120,8 @@ const styles = StyleSheet.create({
   text1: {
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    margin: "2%"
   },
   backgroundImage: {
     flex: 1,
